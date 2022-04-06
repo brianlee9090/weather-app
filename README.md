@@ -1,5 +1,5 @@
 # weather-app
-
+READ ME
 ## Project setup
 ```
 npm install
