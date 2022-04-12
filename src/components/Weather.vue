@@ -4,7 +4,7 @@
         <div class="dateBlock" :key="`date`+index">{{day.date}}</div>
         <div class="weatherInfoBlock" :key="`weatherInfo`+index">
         <div class="weatherBlock" :key="`weatherBlock`+index">
-            <img class="weatherImg" :key="`img`+index" :src="`http://openweathermap.org/img/wn/${day.icon}@2x.png`">
+            <img class="weatherImg" :key="`img`+index" :src="`https://openweathermap.org/img/wn/${day.icon}@2x.png`">
             <label :key="`weather`+index">{{day.weather}} </label>
         </div>
         <div :key="`tempBlock`+index">
