@@ -110,7 +110,7 @@ export default {
       this.checkMapUrl = true
     },
     updateLatLong: async function(){
-      const response = await fetch(`http://api.openweathermap.org/geo/1.0/zip?zip=${this.postalCode},JP&appid=${process.env.VUE_APP_wApiKey}`, {
+      const response = await fetch(`https://api.openweathermap.org/geo/1.0/zip?zip=${this.postalCode},JP&appid=${process.env.VUE_APP_wApiKey}`, {
         method: 'GET',
         headers: {
           'accept': 'application/json',
