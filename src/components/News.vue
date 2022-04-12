@@ -24,10 +24,11 @@ export default {
 	flex-direction: row;
 	justify-content: center;
 	margin:auto;
-	background-color: honeydew;
-	border-radius: 15px;
+	border-color: rgba(0, 0, 0, .1);
+	border-radius: 7px;
+	border-width: 1px;
 	padding: 10px;
-	text-align: center;
+	text-align: start;
 }
 .newsBlock{
 	display: flex;
@@ -38,7 +39,7 @@ export default {
 #newsTitle{
 	font-size: 0.9em;
 	text-decoration: underline;
-	margin-left: 5px;
+	margin-left: 15px;
 }
 #newsIcon{
 	max-height: 9vh;

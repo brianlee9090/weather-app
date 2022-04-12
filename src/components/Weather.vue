@@ -30,21 +30,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .weather{
+    width: 100%;
     margin:auto;
     display:flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
-    align-content: space-evenly;
+    justify-content: space-between;
+    align-content: space-between;
 }
 .dayBlock{
-    padding: 10px;
-    border-radius: 15px;
-    margin: 1vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 7px;
+    width:32%;
     display: flex;
     flex-direction: column;
     justify-items: center;
-     background-color: aliceblue;
+    background-color: aliceblue;
 }
 
 .weatherBlock{

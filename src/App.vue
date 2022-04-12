@@ -1,16 +1,28 @@
 <template>
   <div id="app">
-  <c-text id="welcomeText" v-show="!checkPostCode">Welcome to the weather app. <br>
-  Please enter your Japan postal code. </c-text>
     <div class="inputBlock">
-      <c-input class="input" :value="prefCode" @change="updatePrefCode" type="tel"  maxlength="3" variant="filled" placeholder="E.g: 000" size="medium" minH="5vh" height="80%" minWidth="3vw" maxWidth="10vw"/> -
-      <c-input class="input" :value="cityCode" @change="updateCityCode" type="tel" maxlength="4" variant="filled" placeholder="E.g: 0000" size="medium" minH="5vh" height="80%" minWidth="4vw" maxWidth="10vw"/>
-      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" minH="5vh" maxH="6vh" maxW="10vw" v-on:click="getGeoWeatherData()">🔍</c-button>
+      <c-input class="input" :value="prefCode" @change="updatePrefCode" type="tel"  maxlength="3" variant="filled" placeholder="  000" size="medium" minH="5vh" height="80%" minWidth="3vw" maxWidth="6vw"/> -
+      <c-input class="input" :value="cityCode" @change="updateCityCode" type="tel" maxlength="4" variant="filled" placeholder="  0000" size="medium" minH="5vh" height="80%" minWidth="4vw" maxWidth="7vw"/>
+      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" v-on:click="getGeoWeatherData()"  >🔍</c-button>
     </div>
-  <c-text v-show="wrongPostalCode" color="red">Please enter a valid Japan postal code. </c-text>
-  <div id="retrivedInfoChunk" v-show="!wrongPostalCode">
+    <div class="forgotBlock">
+      <c-text class="reminder" color="grey">Look up a postal code</c-text> 
+      <a :href="`https://www.post.japanpost.jp/zipcode/`">
+      <c-button variant="ghost" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" ><c-icon name="question-outline" size="18px"></c-icon></c-button></a>
+    </div>
+  <div class="messageBlock" v-show="wrongPostalCode">
+  <img class="messageIcon" :src="`https://tsukatte.com/wp-content/uploads/2019/01/hatena.png`">
+  <c-text color="red">Please enter a valid Japan postal code. </c-text>
+  </div>
+    <div class="messageBlock" v-show="!checkPostCode">
+    <img class="messageIcon" :src="`https://www.bhs-mizu.jp/common/uploads/mark-post-001-300x300.png`">
+    <c-text id="welcomeText">Welcome to the weather app. <br>
+  Please enter your Japan postal code. </c-text>
+    </div>
+
+    <div id="retrivedInfoChunk" v-show="!wrongPostalCode">
     <div class="townBlock">
-    <c-text v-show="checkPostCode" fontSize="1.8em" fontWeight="bolder" >{{currentTown}}</c-text>
+    <c-text v-show="checkPostCode" textAlign="start" fontSize="1.8em" fontWeight="bolder" >{{currentTown}}</c-text>
     </div>
       <div class="infoBlock">
       <div class="textblock">
@@ -46,12 +58,12 @@
 <script>
 import Weather from './components/Weather.vue'
 import News from './components/News.vue'
-import { CText, CInput, CButton} from '@chakra-ui/vue'
+import { CText, CInput, CButton, CIcon} from '@chakra-ui/vue'
 
 export default {
   name: 'App',
   components: {
-    Weather, News, CText, CInput, CButton
+    Weather, News, CText, CInput, CButton, CIcon
   },
   data: () => ({
     base_url: 'https://madefor.github.io/postal-code-api/api/v1',
@@ -95,14 +107,14 @@ export default {
           'accept': 'application/json' ,
         },
       })
-      
+      this.checkPostCode = true
       if (response.ok){
       const json = await response.json()
       this.currentTown = json.data[0].en.prefecture + ", " + json.data[0].en.address1 + ", "+ json.data[0].en.address2
       this.prefNameJP = json.data[0].ja.prefecture
       this.cityNameJP = json.data[0].ja.prefecture + json.data[0].ja.address1
       this.cityNameEN = json.data[0].en.prefecture + ", " + json.data[0].en.address1
-      this.checkPostCode = true
+      
       this.wrongPostalCode = false
       } else if(!response.ok){
         this.handlePostalCodeError()
@@ -180,7 +192,7 @@ export default {
 
 <style scoped>
 #app {
-  font-size: 16px;
+  font-size: 14px;
   font-size: 2vw;
   display: flex;
   flex-direction: column;
@@ -191,59 +203,72 @@ export default {
   color: #2c3e50;
   justify-items: center;
   align-items: center;
-  max-width: 70vw;
+  max-width: 50vw;
   max-height: 70vh;
   margin: auto;
-  margin-top:10px;
+  margin-top:30px;
 }
 .inputBlock{
-  min-width: 60vw;
   width: 100%;
   display:flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
+  margin-bottom: 5px;
 }
 .input{
   border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
 }
+.forgotBlock{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.messageBlock{
+  margin: auto;
+  margin-top: 28vh;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+.messageIcon{
+  margin: auto;
+  margin-bottom: 12px;
+  max-height: 18vh;
+  max-width: 18vw
+}
+
 #postalCodeSubmit{
   margin-left: 5px;
 }
-#mapContent {
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-}
+
 #map{
   padding: 0;
   margin: 0;
   max-height: 100%;
-  max-width: 47vw;
+  max-width:50vw;
+}
+#mapContent {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
 }
 
 h5{
   font-weight: bolder;
 }
-#weather{
-  display: flex;
-  justify-items: center;
-  margin: 0px;
-  max-width: 55vw;
-  font-size: calc(14px+1.5vw);
-  border-radius: 15px;
-  border-color: honeydew;
-  border-style: solid;
-  border-width: 2px;
-}
+
 .infoBlock{
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5vh;
   margin-bottom: 5px;
   width: 100%;
   
@@ -254,7 +279,7 @@ h5{
   
 }
 .townBlock{
-  margin-top: 5px;
+  margin-top: 5vh;
 }
 
 .blockIntro{
@@ -264,6 +289,16 @@ h5{
 }
 
 #news{
-  max-width: 47vw;
+  max-width: 50vw;
+  margin-bottom: 80px;
+}
+
+#weather{
+  width: 100%;
+  font-size: 0.8em;
+  justify-items: space-between
+}
+#weatherContent{
+  
 }
 </style>
