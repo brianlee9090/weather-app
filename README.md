@@ -1,5 +1,6 @@
 # weather-app
-READ ME
+Enter your Japan postal code and get the local weather & news!
+
 ## Project setup
 ```
 npm install
