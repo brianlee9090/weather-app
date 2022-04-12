@@ -1,11 +1,11 @@
 <template>
 	<div class="news">
-		<div class="newsBlock">
+		<a class="newsBlock" :href="newsStuff.newsUrl">
 				<img id="newsIcon" :src="newsStuff.newsIconUrl">
 				<div>
-					<a id="newsTitle" :href="newsStuff.newsUrl">{{newsStuff.newsTitle}}</a>
+					<p id="newsTitle" :href="newsStuff.newsUrl">{{newsStuff.newsTitle}}</p>
 				</div>
-		</div>
+		</a>
 	</div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
 	background-color: honeydew;
 	border-radius: 15px;
 	padding: 10px;
+	text-align: center;
 }
 .newsBlock{
 	display: flex;
@@ -35,13 +36,15 @@ export default {
 	margin:auto;
 }
 #newsTitle{
-	font-size:min(2vh, 11px);
+	font-size: 0.9em;
 	text-decoration: underline;
-	margin-left: 5px
+	margin-left: 5px;
 }
 #newsIcon{
 	max-height: 9vh;
 	max-width: 16vw;
+	min-height: 6vh;
+	min-width: 7vw;
 	border-radius: 5px
 }
 </style>

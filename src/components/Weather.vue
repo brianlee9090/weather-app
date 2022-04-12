@@ -44,7 +44,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-items: center;
-    background-color: aliceblue;
+     background-color: aliceblue;
 }
 
 .weatherBlock{

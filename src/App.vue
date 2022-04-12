@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-  <c-text v-show="!checkPostCode">Welcome to the weather app. <br>
+  <c-text id="welcomeText" v-show="!checkPostCode">Welcome to the weather app. <br>
   Please enter your Japan postal code. </c-text>
     <div class="inputBlock">
-      <c-input width="20%" class="input" :value="prefCode" @change="updatePrefCode" type="tel"  maxlength="3" variant="filled" placeholder="E.g: 000" size="medium" /> -
-      <c-input width="20%" class="input" :value="cityCode" @change="updateCityCode" type="tel" maxlength="4" variant="filled" placeholder="E.g: 0000" size="medium"/>
-      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" v-on:click="getGeoWeatherData()">Check</c-button>
+      <c-input class="input" :value="prefCode" @change="updatePrefCode" type="tel"  maxlength="3" variant="filled" placeholder="E.g: 000" size="medium" minH="5vh" height="80%" minWidth="3vw" maxWidth="10vw"/> -
+      <c-input class="input" :value="cityCode" @change="updateCityCode" type="tel" maxlength="4" variant="filled" placeholder="E.g: 0000" size="medium" minH="5vh" height="80%" minWidth="4vw" maxWidth="10vw"/>
+      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" minH="5vh" maxH="6vh" maxW="10vw" v-on:click="getGeoWeatherData()">🔍</c-button>
     </div>
   <c-text v-show="wrongPostalCode" color="red">Please enter a valid Japan postal code. </c-text>
-  <div v-show="!wrongPostalCode">
+  <div id="retrivedInfoChunk" v-show="!wrongPostalCode">
     <div class="townBlock">
-    <c-text v-show="checkPostCode" fontSize="5vh" fontWeight="bolder" >{{currentTown}}</c-text>
+    <c-text v-show="checkPostCode" fontSize="1.8em" fontWeight="bolder" >{{currentTown}}</c-text>
     </div>
       <div class="infoBlock">
       <div class="textblock">
-        <h5 class="blockIntro" v-show="checkPostCode">3 day forcast</h5>
+        <h5 class="blockIntro" v-show="checkPostCode">3-day forecast</h5>
       </div>
       <div id="weather">
         <Weather id="weatherContent" :weatherStuff="weatherData" />
@@ -25,14 +25,18 @@
       <div class="textblock">
         <h5 class="blockIntro">Area map</h5>
       </div>
-        <img id="map" :key="mapUrl" :src="mapUrl" alt="googleMap">
+        <div id="map">
+         <img id="mapContent" :key="mapUrl" :src="mapUrl" alt="googleMap">
+        </div>
     </div>
 
      <div v-show="checkNews" class="infoBlock">
       <div class="textblock">
-        <h5 class="blockIntro">News today in {{this.cityNameEN}}</h5>
+        <h5 class="blockIntro">News topic in the neighborhood</h5>
       </div>
-      <News id="newsContent" :newsStuff="news" />
+      <div id="news">
+        <News id="newsContent" :newsStuff="news" />
+      </div>
      </div>
     </div>
   </div>
@@ -56,6 +60,7 @@ export default {
     enteredPostalCode: "",
     prefCode: "",
     cityCode: "",
+    prefNameJP: "",
     cityNameJP: "",
     cityNameEN: "",
     checkPostCode: false,
@@ -94,6 +99,7 @@ export default {
       if (response.ok){
       const json = await response.json()
       this.currentTown = json.data[0].en.prefecture + ", " + json.data[0].en.address1 + ", "+ json.data[0].en.address2
+      this.prefNameJP = json.data[0].ja.prefecture
       this.cityNameJP = json.data[0].ja.prefecture + json.data[0].ja.address1
       this.cityNameEN = json.data[0].en.prefecture + ", " + json.data[0].en.address1
       this.checkPostCode = true
@@ -152,12 +158,17 @@ export default {
       this.getNews();
     },
     getNews: async function(){
-      const response = await fetch(`https://newsapi.org/v2/everything?q=${this.cityNameJP}&apiKey=${process.env.VUE_APP_nApiKey}`)
-      const json = await response.json()
+      let response = await fetch(`https://newsapi.org/v2/everything?q=${this.cityNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
+      let json = await response.json()
+      if (json.articles.length ===0){
+        response = await fetch(`https://newsapi.org/v2/everything?q=${this.prefNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
+        json = await response.json()
+      }
       console.log(json, "articles")
-      this.news.newsTitle = json.articles[0].title
-      this.news.newsIconUrl = json.articles[0].urlToImage
-      this.news.newsUrl = json.articles[0].url
+      const number = Math.floor(Math.random()*json.articles.length)
+      this.news.newsTitle = json.articles[number].title
+      this.news.newsIconUrl = json.articles[number].urlToImage
+      this.news.newsUrl = json.articles[number].url
       this.checkNews = true
     }
     },
@@ -182,8 +193,11 @@ export default {
   max-width: 70vw;
   max-height: 70vh;
   margin: auto;
+  margin-top:10px;
 }
 .inputBlock{
+  min-width: 60vw;
+  width: 100%;
   display:flex;
   flex-direction: row;
   justify-content: center;
@@ -191,18 +205,22 @@ export default {
 }
 .input{
   border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 #postalCodeSubmit{
   margin-left: 5px;
 }
-#map {
-  max-height: 45vh;
+#mapContent {
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
 }
-.mapblock{
+#map{
   padding: 0;
   margin: 0;
-  display: inline-block;
+  max-height: 100%;
+  max-width: 47vw;
 }
 
 h5{
@@ -212,7 +230,12 @@ h5{
   display: flex;
   justify-items: center;
   margin: 0px;
+  max-width: 55vw;
   font-size: calc(14px+1.5vw);
+  border-radius: 15px;
+  border-color: honeydew;
+  border-style: solid;
+  border-width: 2px;
 }
 .infoBlock{
   display: flex;
@@ -222,16 +245,24 @@ h5{
   margin-top: 10px;
   margin-bottom: 5px;
   width: 100%;
+  
 }
 .textblock{
   display: inline-block;
-  width: 100%
+  width: 100%;
+  
 }
-#town{
-  font-size: calc(25vh)
+.townBlock{
+  margin-top: 5px;
 }
+
 .blockIntro{
+  font-size: 1.2em;
   text-align: start;
   margin-bottom: 8px;
+}
+
+#news{
+  max-width: 47vw;
 }
 </style>
