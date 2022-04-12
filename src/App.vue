@@ -212,7 +212,7 @@ export default {
   width: 100%;
   display:flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 5px;
 }
@@ -225,7 +225,7 @@ export default {
   width: 100%;
   display:flex;
   flex-direction: row;
-  justify-content: right;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 10px;
 }
