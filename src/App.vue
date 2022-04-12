@@ -228,7 +228,7 @@ h5{
   width: 100%
 }
 #town{
-  font-size: calc(100px, 25vh)
+  font-size: calc(25vh)
 }
 .blockIntro{
   text-align: start;
