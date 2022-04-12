@@ -161,6 +161,7 @@ export default {
       let response = await fetch(`https://newsapi.org/v2/everything?q=${this.cityNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
       let json = await response.json()
       if (json.articles.length ===0){
+        console.log("no town article")
         response = await fetch(`https://newsapi.org/v2/everything?q=${this.prefNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
         json = await response.json()
       }
