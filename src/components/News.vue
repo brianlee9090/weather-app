@@ -1,10 +1,10 @@
 <template>
 	<div class="news">
 		<a class="newsBlock" :href="newsStuff.newsUrl">
-				<img id="newsIcon" :src="newsStuff.newsIconUrl">
-				<div>
-					<p id="newsTitle" :href="newsStuff.newsUrl">{{newsStuff.newsTitle}}</p>
-				</div>
+			<img id="newsIcon" :src="newsStuff.newsIconUrl">
+			<div>
+				<p id="newsTitle" :href="newsStuff.newsUrl">{{newsStuff.newsTitle}}</p>
+			</div>
 		</a>
 	</div>
 </template>

@@ -1,60 +1,67 @@
 <template>
   <div id="app">
+
     <div class="inputBlock">
       <c-input class="input" :value="prefCode" @change="updatePrefCode" type="tel"  maxlength="3" variant="filled" placeholder="  000" size="medium" minH="5vh" height="80%" minWidth="3vw" maxWidth="6vw"/> -
       <c-input class="input" :value="cityCode" @change="updateCityCode" type="tel" maxlength="4" variant="filled" placeholder="  0000" size="medium" minH="5vh" height="80%" minWidth="4vw" maxWidth="7vw"/>
-      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" v-on:click="getGeoWeatherData()"  >🔍</c-button>
+      <c-button id="postalCodeSubmit" variant="outline" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" v-on:click="getAllData()"  >🔍</c-button>
     </div>
     <div class="forgotBlock">
       <c-text class="reminder" color="grey">Look up a postal code</c-text> 
       <a :href="`https://www.post.japanpost.jp/zipcode/`">
-      <c-button variant="ghost" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" ><c-icon name="question-outline" size="18px"></c-icon></c-button></a>
+        <c-button variant="ghost" variant-color="blue" size="md" minH="5vh" height=80% maxH="7vh" maxW="10vw" ><c-icon name="question-outline" size="18px"></c-icon></c-button>
+      </a>
     </div>
-  <div class="messageBlock" v-show="wrongPostalCode">
-  <img class="messageIcon" :src="`https://tsukatte.com/wp-content/uploads/2019/01/hatena.png`">
-  <c-text color="red">Please enter a valid Japan postal code. </c-text>
-  </div>
+
+    <div class="messageBlock" v-show="wrongPostalCode">
+      <img class="messageIcon" :src="`https://tsukatte.com/wp-content/uploads/2019/01/hatena.png`">
+      <c-text color="red">Please enter a valid Japan postal code. </c-text>
+    </div>
     <div class="messageBlock" v-show="!checkPostCode">
-    <img class="messageIcon" :src="`https://www.bhs-mizu.jp/common/uploads/mark-post-001-300x300.png`">
-    <c-text id="welcomeText">Welcome to the weather app. <br>
-  Please enter your Japan postal code. </c-text>
+      <img class="messageIcon" :src="`https://www.bhs-mizu.jp/common/uploads/mark-post-001-300x300.png`">
+      <c-text id="welcomeText">Welcome to the weather app. <br> Please enter your Japan postal code. 
+      </c-text>
     </div>
 
     <div id="retrivedInfoChunk" v-show="!wrongPostalCode">
-    <div class="townBlock">
-    <c-text v-show="checkPostCode" textAlign="start" fontSize="1.8em" fontWeight="bolder" >{{currentTown}}</c-text>
-    </div>
-      <div class="infoBlock">
-      <div class="textblock">
-        <h5 class="blockIntro" v-show="checkPostCode">3-day forecast</h5>
-      </div>
-      <div id="weather">
-        <Weather id="weatherContent" :weatherStuff="weatherData" />
-      </div>
-     </div>
 
-     <div v-show="checkMapUrl" class="infoBlock">
-      <div class="textblock">
-        <h5 class="blockIntro">Area map</h5>
+      <div class="townBlock">
+        <c-text v-show="checkPostCode" textAlign="start" fontSize="1.8em" fontWeight="bolder" >{{currentTown}}</c-text>
       </div>
+      <div class="infoBlock">
+        <div class="textblock">
+          <h5 class="blockIntro" v-show="checkPostCode">3-day forecast</h5>
+        </div>
+        <div id="weather">
+          <Weather id="weatherContent" :weatherStuff="weatherData" />
+        </div>
+      </div>
+
+      <div class="infoBlock" v-show="checkMapUrl">
+        <div class="textblock">
+          <h5 class="blockIntro">Area map</h5>
+        </div>
         <div id="map">
-         <a :href="`http://maps.google.com/maps?z=12&t=m&q=loc:${this.lat}+${this.lon}`">
-         <img id="mapContent" :key="mapUrl" :src="mapUrl" alt="googleMap">
-         </a>
+          <a :href="`http://maps.google.com/maps?z=12&t=m&q=loc:${this.lat}+${this.lon}`">
+            <img id="mapContent" :key="mapUrl" :src="mapUrl" alt="googleMap">
+          </a>
         </div>
-    </div>
-     <div v-show="checkMapUrl" class="infoBlock">
-      <div class="textblock">
-        <h5 class="blockIntro">News topic in the neighborhood</h5>
       </div>
-      <div id="news">
-        <div class="ApiErrorBlock" v-show="showAPIError">
-        <p id="ApiError" > News API free plan limit reached. Please try the localhost version or wait for the 12-hour request allowance for the full weather app experience. <br> For more details, please reference the README file.</p>
+
+      <div v-show="checkMapUrl" class="infoBlock">
+        <div class="textblock">
+          <h5 class="blockIntro">News topic in the neighborhood</h5>
         </div>
-        <News v-show="checkNews" id="newsContent" :newsStuff="news" />
+        <div id="news">
+          <div class="ApiErrorBlock" v-show="showApiError">
+            <p id="ApiError" > News API free plan limit reached. Please try the localhost version or wait for the 12-hour request allowance for the full weather app experience. <br> For more details, please reference the README file.</p>
+          </div>
+          <News v-show="checkNews" id="newsContent" :newsStuff="news" />
+        </div>
       </div>
-     </div>
+      
     </div>
+
   </div>
 
 </template>
@@ -93,7 +100,7 @@ export default {
     newsTitle:"",
     newsIconUrl:"",
     newsUrl:""},
-    showAPIError: false,
+    showApiError: false,
     wrongPostalCode: false,
   }),
    methods: {
@@ -167,7 +174,7 @@ export default {
       }
       this.weatherData = newWeatherData
     },
-    getGeoWeatherData: async function(){
+    getAllData: async function(){
       await this.getTownName(); 
       await this.updateMapUrl(); 
       await this.updateLatLong();
@@ -179,7 +186,7 @@ export default {
       
       let json = await response.json()
       if (json.status !== "ok"){
-        this.showAPIError = true;
+        this.showApiError = true;
       }
 
       if (json.status ==="ok" && json.articles.length === 0){

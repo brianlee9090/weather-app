@@ -1,17 +1,19 @@
 <template>
   <div class="weather">
     <div class="dayBlock" v-for="(day,index) in weatherStuff" :key="`day`+index">
-        <div class="dateBlock" :key="`date`+index">{{day.date}}</div>
-        <div class="weatherInfoBlock" :key="`weatherInfo`+index">
+      <div class="dateBlock" :key="`date`+index">{{day.date}}
+      </div>
+      <div class="weatherInfoBlock" :key="`weatherInfo`+index">
         <div class="weatherBlock" :key="`weatherBlock`+index">
-            <img class="weatherImg" :key="`img`+index" :src="`https://openweathermap.org/img/wn/${day.icon}@2x.png`">
-            <label :key="`weather`+index">{{day.weather}} </label>
+          <img class="weatherImg" :key="`img`+index" :src="`https://openweathermap.org/img/wn/${day.icon}@2x.png`">
+          <label :key="`weather`+index">{{day.weather}} 
+          </label>
         </div>
         <div :key="`tempBlock`+index">
-            <div :key="`high`+index">High: {{day.max}}</div>
-            <div :key="`low`+index">Low: {{day.min}}</div>
+          <div :key="`high`+index">High: {{day.max}}</div>
+          <div :key="`low`+index">Low: {{day.min}}</div>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
