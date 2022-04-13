@@ -1,4 +1,4 @@
-# the weather app/Life Info from Postal Code
+# the weather app: life info from postal code
 An easy SPA to get the daily life information you need. 
 Enter your Japan postal code and get the local weather & news!
 
@@ -6,7 +6,7 @@ Enter your Japan postal code and get the local weather & news!
 Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7uDur2T74duTVIX7oYGcVF/view?usp=sharing).
 
 ## How to use
-*The below is a demonstration of the <ins>localhost version</ins>. Please note that the news section is not visible on the web version due to News API plan limitations. If you would like the full experience, please <strong>install and obtain API keys from the below API reference section to run your localhost version </strong>.*
+*The below is a demonstration of the <ins>localhost version</ins>. Please note that the news section is not visible on the web version due to News API free plan limitations. If you would like the full experience, please <strong>install and obtain API keys from the below API reference section to run your localhost version </strong>.*
 
 1. When the user opens the weather app, they are presented with a welcome screen with the two input fields for the first 3 and the next 4 digits of their postal code.
 <br>
@@ -14,9 +14,13 @@ Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7u
 <img src="./img/welcome.png" alt="welcome-page" height="200px" margin="auto"></img></div>
 
 2. After entering a valid postal code, the user is able to see the town name, 3-day weather forecast, a map, and a news article about the entered area.
+
+
 <br>
 <div style="text-align:center">
-<img src="./img/full info.png" alt="full-info" height="200px" margin="auto"></img>  </div>
+<img src="./img/full info.png" alt="full-info" height="200px" margin="auto"></img>  </div> <br>
+
+*The news information is not available if the News API reaches daily call limit \(50 requests per 12 hours\) or if requested from the web version app.*
 
 3. If the user enters an invalid postal code, the user will see the error message screen, as below. Under the input field, there is a button that takes the user to Japan Post website to lookup the target postal code.
 <br>
