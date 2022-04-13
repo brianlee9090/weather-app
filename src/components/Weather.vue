@@ -24,8 +24,6 @@ export default {
   props: {
     weatherStuff: Array,
   },
-
-//   http://openweathermap.org/img/wn/01d@2x.png
 };
 </script>
 

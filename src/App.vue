@@ -14,7 +14,7 @@
         size="medium"
         minH="3vh"
         height="80%"
-        minWidth="3vw"
+        minWidth="4vw"
         maxWidth="6vw"
       />
       -
@@ -32,7 +32,7 @@
         size="medium"
         minH="3vh"
         height="80%"
-        minWidth="4vw"
+        minWidth="5vw"
         maxWidth="7vw"
       />
       <c-button
@@ -44,7 +44,7 @@
         height="80%"
         maxH="7vh"
         maxW="10vw"
-        v-on:click="getAllData(); zoomOut()"
+        v-on:click="getAllData()"
         >🔍</c-button
       >
     </div>
@@ -59,8 +59,9 @@
           height="80%"
           maxH="7vh"
           maxW="10vw"
-          ><c-icon name="question-outline" size="18px"></c-icon
-        ></c-button>
+          >
+          <c-icon name="question-outline" size="18px"></c-icon>
+        </c-button>
       </a>
     </div>
 
@@ -89,11 +90,10 @@
           textAlign="start"
           fontSize="1.8em"
           fontWeight="bolder"
-          >{{ currentTown }}</c-text
-        >
+          >{{ currentTown }}</c-text>
       </div>
       <div class="infoBlock">
-        <div class="textblock">
+        <div class="textBlock">
           <h5 class="blockIntro" v-show="checkPostCode">3-day forecast</h5>
         </div>
         <div id="weather">
@@ -102,20 +102,18 @@
       </div>
 
       <div class="infoBlock" v-show="checkMapUrl">
-        <div class="textblock">
+        <div class="textBlock">
           <h5 class="blockIntro">Area map</h5>
         </div>
         <div id="map">
-          <a
-            :href="`http://maps.google.com/maps?z=12&t=m&q=loc:${this.lat}+${this.lon}`"
-          >
+          <a :href="`http://maps.google.com/maps?z=12&t=m&q=loc:${this.lat}+${this.lon}`">
             <img id="mapContent" :key="mapUrl" :src="mapUrl" alt="googleMap" />
           </a>
         </div>
       </div>
 
       <div v-show="checkMapUrl" class="infoBlock">
-        <div class="textblock">
+        <div class="textBlock">
           <h5 class="blockIntro">News topic in the neighborhood</h5>
         </div>
         <div id="news">
@@ -123,7 +121,7 @@
             <p id="ApiError">
               News API free plan limit reached. Please try the localhost version
               or wait for the 12-hour request allowance for the full weather app
-              experience. <br />
+              experience. <br>
               For more details, please refer to the README file.
             </p>
           </div>
@@ -153,7 +151,6 @@ export default {
     base_url: "https://madefor.github.io/postal-code-api/api/v1",
     currentTown: "",
     postalCode: "",
-    enteredPostalCode: "",
     prefCode: "",
     cityCode: "",
     prefNameJP: "",
@@ -163,7 +160,6 @@ export default {
     checkMapUrl: false,
     checkNews: false,
     coordinates: "",
-    map: "",
     mapUrl: "",
     lat: "",
     lon: "",
@@ -285,14 +281,6 @@ export default {
       this.getWeather();
       this.getNews();
     },
-    zoomOut(){
-      const viewport = document.querySelector('meta[name="viewport"]');
-
-    if ( viewport ) {
-      viewport.content = 'initial-scale=1';
-      viewport.content = 'width=device-width';
-    }
-    },
     getNews: async function () {
       let response = await fetch(
         `https://newsapi.org/v2/everything?q=${this.cityNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`
@@ -395,6 +383,10 @@ h5 {
   font-weight: bolder;
 }
 
+.townBlock {
+  margin-top: 3vh;
+}
+
 .infoBlock {
   display: flex;
   flex-direction: column;
@@ -404,13 +396,13 @@ h5 {
   margin-bottom: 5px;
   width: 100%;
 }
-.textblock {
+
+.textBlock {
   display: inline-block;
   width: 100%;
 }
-.townBlock {
-  margin-top: 3vh;
-}
+
+
 
 .blockIntro {
   font-size: 1.2em;
