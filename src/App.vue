@@ -49,7 +49,7 @@
       </div>
       <div id="news">
         <div class="ApiErrorBlock" v-show="showAPIError">
-        <p id="ApiError" >Please use run the app from localhost or change your News API plan for the full app experience. For more details, please reference the README.</p>
+        <p id="ApiError" >Please use run the app from localhost or change your News API plan for the full app experience. <br> For more details, please reference the README.</p>
         </div>
         <News v-show="checkNews" id="newsContent" :newsStuff="news" />
       </div>
@@ -315,8 +315,9 @@ h5{
   border-width: 1px;
 }
 #ApiError{
-  margin: 5px;
+  margin: 10px;
   text-align: start;
-  font-size: 0.8em;
+  font-size: 0.7em;
+  color: red;
 }
 </style>
