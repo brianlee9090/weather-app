@@ -50,7 +50,7 @@
       </div>
       <div id="news">
         <div class="ApiErrorBlock" v-show="showApiError">
-          <p id="ApiError" > News API free plan limit reached. Please try the localhost version or wait for the 12-hour request allowance for the full weather app experience. <br> For more details, please reference the README file.</p>
+          <p id="ApiError" > News API free plan limit reached. Please try the localhost version or wait for the 12-hour request allowance for the full weather app experience. <br> For more details, please refer to my GitHub README.</p>
         </div>
         <News v-show="checkNews" id="newsContent" :newsStuff="news" />
       </div>
