@@ -49,7 +49,7 @@
       </div>
       <div id="news">
         <div class="ApiErrorBlock" v-show="showAPIError">
-        <p id="ApiError" >Please use run the app from localhost or change your News API plan for the full app experience. <br> For more details, please reference the README.</p>
+        <p id="ApiError" > Current API plan limit reached. Please change your News API plan for the full weather app experience. <br> For more details, please reference the README.</p>
         </div>
         <News v-show="checkNews" id="newsContent" :newsStuff="news" />
       </div>
@@ -188,7 +188,6 @@ export default {
       }
       
       if (json.status === "ok"){
-      console.log(json, "articles")
       const number = Math.floor(Math.random()*json.articles.length)
       this.news.newsTitle = json.articles[number].title
       this.news.newsIconUrl = json.articles[number].urlToImage
@@ -315,9 +314,10 @@ h5{
   border-width: 1px;
 }
 #ApiError{
-  margin: 10px;
+  margin: 15px;
   text-align: start;
   font-size: 0.7em;
-  color: red;
+  color: grey;
+  font-style: italic;
 }
 </style>
