@@ -289,6 +289,7 @@ export default {
       let json = await response.json();
       if (json.status !== "ok") {
         this.showApiError = true;
+        console.log(json, "API ERROR")
       }
 
       if (json.status === "ok" && json.articles.length === 0) {
@@ -296,9 +297,11 @@ export default {
           `https://newsapi.org/v2/everything?q=${this.prefNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`
         );
         json = await response.json();
+        console.log(json, "Fetched again")
       }
 
       if (json.status === "ok") {
+        console.log(json, "final")
         const number = Math.floor(Math.random() * json.articles.length);
         this.news.newsTitle = json.articles[number].title;
         this.news.newsIconUrl = json.articles[number].urlToImage;
