@@ -48,7 +48,9 @@
         <h5 class="blockIntro">News topic in the neighborhood</h5>
       </div>
       <div id="news">
-        <p id="ApiError" v-show="showAPIError">Please use run the app from localhost or change your News API plan for the full app experience. For more details, please reference README.</p>
+        <div class="ApiErrorBlock" v-show="showAPIError">
+        <p id="ApiError" >Please use run the app from localhost or change your News API plan for the full app experience. For more details, please reference the README.</p>
+        </div>
         <News v-show="checkNews" id="newsContent" :newsStuff="news" />
       </div>
      </div>
@@ -307,11 +309,14 @@ h5{
   font-size: 0.8em;
   justify-items: space-between
 }
-#ApiError{
-  text-align: start;
+.ApiErrorBlock{
   border-radius: 5px;
-  border-color: rgb(0,0,0,0.1);
+  border-color: rgba(0, 0, 0, .1);
   border-width: 1px;
+}
+#ApiError{
+  margin: 5px;
+  text-align: start;
   font-size: 0.8em;
 }
 </style>
