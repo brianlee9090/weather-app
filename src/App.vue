@@ -176,19 +176,19 @@ export default {
       let response = await fetch(`https://newsapi.org/v2/everything?q=${this.cityNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
       let json = await response.json()
       if (json.articles.length ===0){
-        console.log("no town article")
         response = await fetch(`https://newsapi.org/v2/everything?q=${this.prefNameJP}&domains=asahi.com&apiKey=${process.env.VUE_APP_nApiKey}`)
         json = await response.json()
       }
+      
+      if (json.status !== "ok"){
+        this.showAPIError = true;
+      }
+      if (json.status === "ok"){
       console.log(json, "articles")
       const number = Math.floor(Math.random()*json.articles.length)
       this.news.newsTitle = json.articles[number].title
       this.news.newsIconUrl = json.articles[number].urlToImage
       this.news.newsUrl = json.articles[number].url
-      if (json.status !== "ok"){
-        this.showAPIError = true;
-      }
-      if (json.status === "ok"){
       this.checkNews = true}
     }
     },
