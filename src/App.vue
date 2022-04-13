@@ -38,16 +38,18 @@
         <h5 class="blockIntro">Area map</h5>
       </div>
         <div id="map">
+         <a :href="`http://maps.google.com/maps?z=12&t=m&q=loc:${this.lat}+${this.lon}`">
          <img id="mapContent" :key="mapUrl" :src="mapUrl" alt="googleMap">
+         </a>
         </div>
     </div>
-
-     <div v-show="checkNews" class="infoBlock">
+     <div v-show="checkMapUrl" class="infoBlock">
       <div class="textblock">
         <h5 class="blockIntro">News topic in the neighborhood</h5>
       </div>
       <div id="news">
-        <News id="newsContent" :newsStuff="news" />
+        <p v-show="showAPIError">Please use run the app from localhost or change your News API plan.</p>
+        <News v-show="checkNews" id="newsContent" :newsStuff="news" />
       </div>
      </div>
     </div>
@@ -89,6 +91,7 @@ export default {
     newsTitle:"",
     newsIconUrl:"",
     newsUrl:""},
+    showAPIError: false,
     wrongPostalCode: false,
   }),
    methods: {
@@ -182,7 +185,11 @@ export default {
       this.news.newsTitle = json.articles[number].title
       this.news.newsIconUrl = json.articles[number].urlToImage
       this.news.newsUrl = json.articles[number].url
-      this.checkNews = true
+      if (json.status !== "ok"){
+        this.showAPIError = true;
+      }
+      if (json.status === "ok"){
+      this.checkNews = true}
     }
     },
   
