@@ -12,7 +12,7 @@
         variant="filled"
         placeholder="  000"
         size="medium"
-        minH="5vh"
+        minH="3vh"
         height="80%"
         minWidth="3vw"
         maxWidth="6vw"
@@ -30,7 +30,7 @@
         variant="filled"
         placeholder="  0000"
         size="medium"
-        minH="5vh"
+        minH="3vh"
         height="80%"
         minWidth="4vw"
         maxWidth="7vw"
@@ -40,11 +40,11 @@
         variant="outline"
         variant-color="blue"
         size="md"
-        minH="5vh"
+        minH="3vh"
         height="80%"
         maxH="7vh"
         maxW="10vw"
-        v-on:click="getAllData()"
+        v-on:click="getAllData(); zoomOut()"
         >🔍</c-button
       >
     </div>
@@ -178,10 +178,6 @@ export default {
   }),
   methods: {
     goNext(event) {
-      console.log(event.target.value.trim(), "a");
-      console.log(event.target.value.length, "b");
-      console.log(event.target.value, "c");
-
       if (event.target.value.length === 3) {
         document.getElementById("nextFour").focus();
       }
@@ -288,6 +284,14 @@ export default {
       await this.updateLatLong();
       this.getWeather();
       this.getNews();
+    },
+    zoomOut(){
+      const viewport = document.querySelector('meta[name="viewport"]');
+
+    if ( viewport ) {
+      viewport.content = 'initial-scale=1';
+      viewport.content = 'width=device-width';
+    }
     },
     getNews: async function () {
       let response = await fetch(
