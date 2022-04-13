@@ -1,7 +1,7 @@
 # The Weather App: Life Info from Postal Code
 An easy SPA to get the daily life information you need. 
-Enter your Japan postal code and get the local weather & news!
-*For best experience, please run a local version on a computer, as I am currently optimizing mobile version.
+Enter your Japan postal code and get the local weather & news! <br>
+*For best experience, please run a local version on a computer, as the mobile version may not render certain components correctly.*
 
 ## Demo
 Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7uDur2T74duTVIX7oYGcVF/view?usp=sharing).
