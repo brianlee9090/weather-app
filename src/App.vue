@@ -10,12 +10,12 @@
         type="tel"
         maxlength="3"
         variant="filled"
-        placeholder="  000"
+        placeholder=" 000"
         size="medium"
         minH="3vh"
         height="80%"
         minWidth="4vw"
-        maxWidth="6vw"
+        maxWidth="8vw"
       />
       -
       <c-input
@@ -28,12 +28,12 @@
         type="tel"
         maxlength="4"
         variant="filled"
-        placeholder="  0000"
+        placeholder=" 0000"
         size="medium"
         minH="3vh"
         height="80%"
         minWidth="5vw"
-        maxWidth="7vw"
+        maxWidth="9vw"
       />
       <c-button
         id="postalCodeSubmit"
