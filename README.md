@@ -1,8 +1,8 @@
-# the weather app: life info from postal code
+# The Weather App: Life Info from Postal Code
 An easy SPA to get the daily life information you need. 
 Enter your Japan postal code and get the local weather & news!
 
-## Demo:
+## Demo
 Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7uDur2T74duTVIX7oYGcVF/view?usp=sharing).
 
 ## How to use
@@ -11,7 +11,7 @@ Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7u
 1. When the user opens the weather app, they are presented with a welcome screen with the two input fields for the first 3 and the next 4 digits of their postal code.
 <br>
 <p align="center">
-<img src="./img/welcome.png" alt="welcome-page" height="350px" margin="auto"></img>
+<img src="./img/welcome.png" alt="welcome-page" height="450px" margin="auto"></img>
 </p>
 
 2. After entering a valid postal code, the user is able to see the town name, 3-day weather forecast, a map, and a news article about the entered area.
@@ -19,14 +19,14 @@ Please watch the demo video [here](https://drive.google.com/file/d/1RW_WP2yGHn7u
 
 <br>
 <p align="center">
-<img src="./img/full info.png" alt="full-info" height="350px" margin="auto"></img>  </div> </p>
+<img src="./img/full info.png" alt="full-info" height="450px" margin="auto"></img>  </div> </p>
 
 *The news information is not available if the News API reaches daily call limit \(50 requests per 12 hours\) or if requested from the web version app.*
 
 3. If the user enters an invalid postal code, the user will see the error message screen, as below. Under the input field, there is a button that takes the user to Japan Post website to lookup the target postal code.
 <br>
 <p align="center">
-<img src="./img/no info.png" alt="no-info" height="350px" margin="auto"></img> </p>
+<img src="./img/no info.png" alt="no-info" height="450px" margin="auto"></img> </p>
 <br>
 
 The web version is hosted [here](https://weather-app-brianlee9090.vercel.app/).
