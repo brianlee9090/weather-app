@@ -310,7 +310,8 @@ h5{
 #ApiError{
   text-align: start;
   border-radius: 5px;
-  border-color: grey;
+  border-color: rgb(0,0,0,0.1);
   border-width: 1px;
+  font-size: 0.8em;
 }
 </style>

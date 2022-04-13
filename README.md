@@ -33,6 +33,7 @@ With a press of a button, you can see:
     $ npm install
 
 ## API Reference
+<b>API used</b>
 -[Openweather Weather API](https://openweathermap.org/)
 -[News API](https://newsapi.org/)
 -[Postal Code API](https://github.com/madefor/postal-code-api/)
